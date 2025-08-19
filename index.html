@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUZZ KILL - Charging Reminder System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Iceberg&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app" class="app">
+        <!-- Main content -->
+        <main class="main-content">
+            <!-- Home Screen -->
+            <div id="home-screen" class="screen active">
+                <div class="home-container">
+                    <div class="title-section">
+                        <h1 class="app-title neon-gradient-text">BUZZ KILL</h1>
+                        <div class="subtitle">Charging Reminder System v1.0</div>
+                    </div>
+
+                    <!-- Battery Circle -->
+                    <div class="battery-display">
+                        <div id="battery-circle" class="battery-circle">
+                            <div class="battery-inner">
+                                <div id="battery-percentage" class="battery-text">61%</div>
+                                <div id="battery-status" class="battery-status-text">BATTERY</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Status Indicator -->
+                        <div id="status-indicator" class="status-indicator" style="display: none;">
+                            <div id="status-dot" class="status-dot"></div>
+                            <span id="status-text" class="status-text"></span>
+                        </div>
+                    </div>
+
+                    <!-- Control Buttons -->
+                    <div class="control-buttons">
+                        <button id="plug-button" class="neon-button">Plug In</button>
+                        <button id="charge-button" class="neon-button" disabled>Start Charging</button>
+                    </div>
+
+                    <!-- Quick Status -->
+                    <div id="quick-status" class="quick-status"></div>
+                </div>
+            </div>
+
+            <!-- Alerts Screen -->
+            <div id="alerts-screen" class="screen">
+                <div class="screen-container">
+                    <h2 class="screen-title neon-gradient-text">Alert History</h2>
+                    <div class="alerts-container">
+                        <div class="alert-card warning-card">
+                            <div class="alert-content">
+                                <div class="alert-icon neon-orange">⚠️</div>
+                                <div class="alert-details">
+                                    <div class="alert-title neon-orange">PLUGGED BUT NOT CHARGING!</div>
+                                    <div class="alert-message">Check your power switch.</div>
+                                    <div class="alert-timestamp">Just now</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert-card warning-card">
+                            <div class="alert-content">
+                                <div class="alert-icon neon-orange">⚠️</div>
+                                <div class="alert-details">
+                                    <div class="alert-title neon-orange">LOW BATTERY (29%)</div>
+                                    <div class="alert-message">💡 Reminder: Charge soon</div>
+                                    <div class="alert-timestamp">5 min ago</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert-card alert-card-critical">
+                            <div class="alert-content">
+                                <div class="alert-icon neon-red">❗</div>
+                                <div class="alert-details">
+                                    <div class="alert-title neon-red">CRITICAL BATTERY (9%)</div>
+                                    <div class="alert-message">🔔 Urgent alert tone</div>
+                                    <div class="alert-timestamp">2 min ago</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Screen -->
+            <div id="analytics-screen" class="screen">
+                <div class="screen-container">
+                    <h2 class="screen-title neon-gradient-text">Battery Analytics</h2>
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <div class="analytics-value neon-green" id="current-level">61%</div>
+                            <div class="analytics-label">Current Level</div>
+                        </div>
+                        <div class="analytics-card">
+                            <div class="analytics-value neon-orange">7%</div>
+                            <div class="analytics-label">Lowest Today</div>
+                        </div>
+                        <div class="analytics-card">
+                            <div class="analytics-value analytics-cyan">3</div>
+                            <div class="analytics-label">Overcharge Count</div>
+                        </div>
+                        <div class="analytics-card clickable" id="settings-shortcut">
+                            <div class="analytics-value analytics-purple">⚙️</div>
+                            <div class="analytics-label">Settings</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mock graph area -->
+                    <div class="graph-container">
+                        <h3 class="graph-title neon-green">24 Hour Battery Status</h3>
+                        <div class="graph-bars">
+                            <div class="graph-bar" style="height: 65%"></div>
+                            <div class="graph-bar" style="height: 45%"></div>
+                            <div class="graph-bar" style="height: 30%"></div>
+                            <div class="graph-bar" style="height: 15%"></div>
+                            <div class="graph-bar" style="height: 8%"></div>
+                            <div class="graph-bar" style="height: 25%"></div>
+                            <div class="graph-bar" style="height: 60%"></div>
+                            <div class="graph-bar" style="height: 85%"></div>
+                            <div class="graph-bar" style="height: 70%"></div>
+                            <div class="graph-bar" style="height: 61%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Screen -->
+            <div id="settings-screen" class="screen">
+                <div class="screen-container">
+                    <h2 class="screen-title neon-gradient-text">Settings</h2>
+                    <div class="settings-container">
+                        
+                        <!-- Alert Settings -->
+                        <div class="settings-card">
+                            <h3 class="settings-section-title">🔔 Alert Settings</h3>
+                            <div class="settings-options">
+                                <div class="setting-row">
+                                    <label class="setting-label">Enable Alerts</label>
+                                    <div id="alerts-toggle" class="toggle-switch active" data-setting="alertsEnabled"></div>
+                                </div>
+                                <div class="setting-row">
+                                    <label class="setting-label">Fun Alert Sounds</label>
+                                    <div id="sounds-toggle" class="toggle-switch" data-setting="funSounds"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Threshold Settings -->
+                        <div class="settings-card">
+                            <h3 class="settings-section-title">⚡ Battery Thresholds</h3>
+                            <div class="settings-options">
+                                <div class="setting-group">
+                                    <label class="setting-label">Low Battery Warning (<span id="low-threshold-display">30</span>%)</label>
+                                    <input type="range" id="low-threshold" class="threshold-slider orange-slider" min="15" max="50" value="30">
+                                </div>
+                                <div class="setting-group">
+                                    <label class="setting-label">Critical Battery Alert (<span id="critical-threshold-display">10</span>%)</label>
+                                    <input type="range" id="critical-threshold" class="threshold-slider red-slider" min="5" max="25" value="10">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- App Info -->
+                        <div class="settings-card">
+                            <h3 class="settings-section-title">ℹ️ App Information</h3>
+                            <div class="app-info">
+                                <div class="info-row">
+                                    <span>Version:</span>
+                                    <span class="neon-green">1.0.0</span>
+                                </div>
+                                <div class="info-row">
+                                    <span>Build:</span>
+                                    <span class="info-cyan">2024.12.17</span>
+                                </div>
+                                <div class="info-row">
+                                    <span>Theme:</span>
+                                    <span class="info-purple">Cyberpunk</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div class="nav-container">
+                <button class="nav-button" data-screen="alerts">Alerts</button>
+                <button class="nav-button active" data-screen="home">Home</button>
+                <button class="nav-button" data-screen="analytics">Analytics</button>
+                <button class="nav-button" data-screen="settings">Settings</button>
+            </div>
+        </nav>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
